@@ -5,6 +5,7 @@ import {
   faAngleLeft,
   faAngleRight,
   faPause,
+  faVolumeDown,
 } from "@fortawesome/free-solid-svg-icons";
 
 const Player = ({
@@ -15,6 +16,9 @@ const Player = ({
   setCurrentSong,
   setSongs,
 }) => {
+  //Add volume functionality
+  const [activeVolume, setActiveVolume] = useState(false);
+
   //Reference
   const audioRef = useRef(null);
 
@@ -105,6 +109,13 @@ const Player = ({
     await setCurrentSong(songs[(currentIndex + 1) % songs.length]);
     if (isPlaying) audioRef.current.play();
   };
+
+  const changeVolume = (e) => {
+    let value = e.target.value;
+    audioRef.current.volume = value;
+    setSongInfo({ ...songInfo, volume: value });
+  };
+
   //State
   const [songInfo, setSongInfo] = useState({
     currentTime: 0,
@@ -116,6 +127,7 @@ const Player = ({
   const trackAnim = {
     transform: `translateX(${songInfo.animationPercentage}%)`,
   };
+
   return (
     <div className="player">
       <div className="time-control">
@@ -156,6 +168,21 @@ const Player = ({
           size="2x"
           icon={faAngleRight}
         />
+        <FontAwesomeIcon
+          sinze="2x"
+          onClick={() => setActiveVolume(!activeVolume)}
+          icon={faVolumeDown}
+        />
+        {activeVolume && (
+          <input
+            onChange={changeVolume}
+            value={songInfo.volume}
+            max="1"
+            min="0"
+            step="0.01"
+            type="range"
+          />
+        )}
       </div>
       <audio
         onTimeUpdate={timeUpdateHandler}
