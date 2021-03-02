@@ -81,6 +81,16 @@ function chillHop() {
       id: uuidv4(),
       active: false,
     },
+    {
+      name: "Maple",
+      cover:
+        "https://chillhop.com/wp-content/uploads/2021/02/7f102bdde417f6ead9a120b2b931449e5c12b4da-1024x1024.jpg",
+      artist: "Arbour, Aarigod",
+      audio: "https://mp3.chillhop.com/serve.php/?mp3=13015",
+      color: ["#526632", "#A9C165"],
+      id: uuidv4(),
+      active: false,
+    },
     //ADD MORE HERE
   ];
 }
